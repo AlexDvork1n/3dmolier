@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Partnership Pitch · 3D Molier × Александр Дворкин</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #F8F7F4;
+    --surface: #FFFFFF;
+    --surface2: #F1EFE8;
+    --border: rgba(0,0,0,0.10);
+    --border-strong: rgba(0,0,0,0.18);
+    --text-primary: #1A1916;
+    --text-secondary: #5F5E5A;
+    --text-tertiary: #888780;
+    --blue-bg: #E6F1FB;
+    --blue-text: #0C447C;
+    --blue-accent: #185FA5;
+    --teal-bg: #E1F5EE;
+    --teal-text: #085041;
+    --teal-accent: #0F6E56;
+    --amber-bg: #FAEEDA;
+    --amber-text: #633806;
+    --gray-bg: #F1EFE8;
+    --gray-text: #444441;
+    --radius-md: 8px;
+    --radius-lg: 12px;
+    --radius-xl: 16px;
+  }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--text-primary);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem 1rem 4rem;
+  }
+
+  /* Header */
+  .header {
+    width: 100%;
+    max-width: 820px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+  }
+  .header-logo {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-tertiary);
+    letter-spacing: 0.04em;
+  }
+  .header-date {
+    font-size: 12px;
+    color: var(--text-tertiary);
+  }
+
+  /* Deck container */
+  .deck {
+    width: 100%;
+    max-width: 820px;
+    background: var(--surface);
+    border-radius: var(--radius-xl);
+    border: 0.5px solid var(--border-strong);
+    overflow: hidden;
+  }
+
+  /* Navigation */
+  .nav-bar {
+    display: flex;
+    gap: 0;
+    border-bottom: 0.5px solid var(--border);
+    overflow-x: auto;
+    scrollbar-width: none;
+    background: var(--surface2);
+  }
+  .nav-bar::-webkit-scrollbar { display: none; }
+  .nav-btn {
+    background: none;
+    border: none;
+    border-bottom: 2px solid transparent;
+    padding: 12px 18px;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--text-tertiary);
+    cursor: pointer;
+    white-space: nowrap;
+    letter-spacing: 0.03em;
+    transition: all 0.15s;
+    flex-shrink: 0;
+  }
+  .nav-btn:hover { color: var(--text-primary); background: var(--border); }
+  .nav-btn.active { color: var(--text-primary); border-bottom-color: var(--text-primary); background: var(--surface); }
+
+  /* Slide */
+  .slide { display: none; padding: 2.5rem 2.75rem 2rem; min-height: 480px; }
+  .slide.active { display: block; animation: fadeIn 0.2s ease; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+
+  /* Typography */
+  .overline {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-tertiary);
+    margin-bottom: 0.6rem;
+  }
+  .h1 { font-size: 34px; font-weight: 400; line-height: 1.15; color: var(--text-primary); margin-bottom: 0.75rem; }
+  .h2 { font-size: 22px; font-weight: 500; line-height: 1.25; color: var(--text-primary); margin-bottom: 0.75rem; }
+  .sub { font-size: 15px; color: var(--text-secondary); line-height: 1.65; margin-bottom: 1.75rem; max-width: 580px; }
+
+  /* Cards */
+  .card {
+    background: var(--surface);
+    border: 0.5px solid var(--border-strong);
+    border-radius: var(--radius-lg);
+    padding: 1.1rem 1.3rem;
+  }
+  .card-surface {
+    background: var(--surface2);
+    border-radius: var(--radius-lg);
+    padding: 1.1rem 1.3rem;
+  }
+  .card-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 1.25rem; }
+  .card-grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; margin-bottom: 1.5rem; }
+  .split { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 1.25rem; }
+
+  /* Metric */
+  .metric {
+    background: var(--surface2);
+    border-radius: var(--radius-md);
+    padding: 1rem 1.1rem;
+  }
+  .metric .val { font-size: 26px; font-weight: 500; color: var(--text-primary); }
+  .metric .mlab { font-size: 12px; color: var(--text-secondary); margin-top: 3px; line-height: 1.4; }
+
+  /* Row items */
+  .row { display: flex; gap: 12px; align-items: flex-start; margin-bottom: 1rem; }
+  .row:last-child { margin-bottom: 0; }
+  .icon-box {
+    width: 36px; height: 36px;
+    border-radius: var(--radius-md);
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0; font-size: 17px; font-weight: 600;
+  }
+  .ib-blue { background: var(--blue-bg); color: var(--blue-accent); }
+  .ib-teal { background: var(--teal-bg); color: var(--teal-accent); }
+  .ib-amber { background: var(--amber-bg); color: var(--amber-text); }
+  .ib-gray { background: var(--surface2); color: var(--text-secondary); }
+  .rtitle { font-size: 14px; font-weight: 500; color: var(--text-primary); margin-bottom: 2px; }
+  .rdesc { font-size: 13px; color: var(--text-secondary); line-height: 1.5; }
+
+  /* Tags / Badges */
+  .tag { display: inline-block; font-size: 12px; font-weight: 500; padding: 3px 10px; border-radius: var(--radius-md); margin: 2px 4px 2px 0; }
+  .tag-blue { background: var(--blue-bg); color: var(--blue-text); }
+  .tag-teal { background: var(--teal-bg); color: var(--teal-text); }
+  .tag-amber { background: var(--amber-bg); color: var(--amber-text); }
+  .badge { display: inline-block; font-size: 11px; font-weight: 600; letter-spacing: 0.05em; padding: 3px 10px; border-radius: var(--radius-md); margin-bottom: 8px; }
+  .badge-blue { background: var(--blue-bg); color: var(--blue-text); }
+  .badge-teal { background: var(--teal-bg); color: var(--teal-text); }
+
+  /* Divider */
+  .divider { border: none; border-top: 0.5px solid var(--border); margin: 1rem 0; }
+
+  /* Left border accent */
+  .pl { padding-left: 1rem; border-left: 2px solid var(--border); margin-bottom: 10px; }
+  .pl-blue { border-left-color: var(--blue-accent); }
+  .pl-teal { border-left-color: var(--teal-accent); }
+
+  /* Featured card */
+  .featured { border: 2px solid var(--blue-accent); }
+
+  /* Footer nav */
+  .footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.25rem 2.75rem;
+    border-top: 0.5px solid var(--border);
+    background: var(--surface2);
+  }
+  .fn-btn {
+    background: var(--surface);
+    border: 0.5px solid var(--border-strong);
+    border-radius: var(--radius-md);
+    padding: 8px 20px;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-primary);
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .fn-btn:hover { background: var(--surface2); }
+  .fn-btn:disabled { opacity: 0.35; cursor: default; }
+  .fn-counter { font-size: 12px; color: var(--text-tertiary); }
+
+  /* Progress bar */
+  .progress-bar {
+    height: 2px;
+    background: var(--border);
+    position: relative;
+  }
+  .progress-fill {
+    height: 100%;
+    background: var(--text-primary);
+    transition: width 0.25s ease;
+  }
+
+  /* Contact block */
+  .contact-row {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    background: var(--surface2);
+    border-radius: var(--radius-lg);
+    padding: 1.1rem 1.3rem;
+  }
+  .avatar {
+    width: 48px; height: 48px; border-radius: 50%;
+    background: var(--blue-bg);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 15px; font-weight: 600; color: var(--blue-accent);
+    flex-shrink: 0;
+  }
+
+  /* SVG icons inline */
+  .icon { width: 18px; height: 18px; vertical-align: -3px; }
+
+  @media (max-width: 600px) {
+    .slide { padding: 1.5rem 1.25rem 1.25rem; }
+    .footer { padding: 1rem 1.25rem; }
+    .h1 { font-size: 26px; }
+    .card-grid, .card-grid-3, .split { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-logo">3D Molier × Александр Дворкин</div>
+  <div class="header-date">Май 2026</div>
+</div>
+
+<div class="deck">
+  <div class="nav-bar" id="nav"></div>
+  <div class="progress-bar"><div class="progress-fill" id="progress"></div></div>
+  <div id="slides"></div>
+  <div class="footer">
+    <button class="fn-btn" id="btn-prev" onclick="prevSlide()">← Назад</button>
+    <span class="fn-counter" id="counter">1 / 7</span>
+    <button class="fn-btn" id="btn-next" onclick="nextSlide()">Далее →</button>
+  </div>
+</div>
+
+<script>
+const slides = [
+  {
+    label: "01 · Рынок",
+    html: `
+      <div class="overline">Контекст</div>
+      <p class="h1">AI меняет 3D-индустрию.<br>Рынок не ждёт.</p>
+      <p class="sub">Генеративный AI в сегменте 3D-контента растёт на 23% в год. К 2035 году объём рынка превысит $2.6 млрд. Выигрывают те, кто строит гибридный pipeline уже сейчас.</p>
+      <div class="card-grid-3">
+        <div class="metric"><div class="val">23%</div><div class="mlab">CAGR рынка AI-генерации 3D</div></div>
+        <div class="metric"><div class="val">$2.6B</div><div class="mlab">Прогноз рынка к 2035</div></div>
+        <div class="metric"><div class="val">2025</div><div class="mlab">Год зрелости технологии</div></div>
+      </div>
+      <div class="card">
+        <div class="row">
+          <div class="icon-box ib-blue">↗</div>
+          <div>
+            <div class="rtitle">AI + художники = конкурентное преимущество</div>
+            <div class="rdesc">2025 год — переломный. AI-инструменты достигли качества, при котором модели идут напрямую в production-pipeline с минимальной доработкой. Студии, освоившие гибридный подход, сокращают time-to-delivery на 60–70% и удваивают маржинальность.</div>
+          </div>
+        </div>
+      </div>
+    `
+  },
+  {
+    label: "02 · Проблема",
+    html: `
+      <div class="overline">Боль рынка</div>
+      <p class="h2">Маркетплейсы не закрывают главную потребность</p>
+      <p class="sub">Turbosquid, Sketchfab — это полка с готовым товаром. Корпоративным клиентам и e-commerce брендам нужна фабрика под заказ.</p>
+      <div class="split">
+        <div class="card">
+          <div class="overline">B2B клиенты</div>
+          <div class="pl pl-blue" style="margin-top:10px;">
+            <div class="rtitle">Нужен кастом под бренд</div>
+            <div class="rdesc">Точные габариты, материалы, логотипы — готовые модели не подходят</div>
+          </div>
+          <div class="pl pl-blue">
+            <div class="rtitle">Нужна скорость</div>
+            <div class="rdesc">Агентства не могут ждать 2–4 недели стандартного производства</div>
+          </div>
+          <div class="pl pl-blue" style="margin-bottom:0;">
+            <div class="rtitle">Нужна надёжность</div>
+            <div class="rdesc">Фрилансеры — риск. Нужен партнёр с гарантией качества</div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="overline">E-commerce бренды</div>
+          <div class="pl pl-teal" style="margin-top:10px;">
+            <div class="rtitle">Нужен масштаб</div>
+            <div class="rdesc">Сотни SKU в 3D/AR — вручную нереально по цене и срокам</div>
+          </div>
+          <div class="pl pl-teal">
+            <div class="rtitle">Нужна предсказуемость</div>
+            <div class="rdesc">Единый стиль на всём каталоге — не разброс фрилансеров</div>
+          </div>
+          <div class="pl pl-teal" style="margin-bottom:0;">
+            <div class="rtitle">Нужен recurring</div>
+            <div class="rdesc">Постоянное пополнение каталога — не разовый заказ</div>
+          </div>
+        </div>
+      </div>
+      <div class="card-surface">
+        <div style="font-size:14px; color:var(--text-secondary); line-height:1.65;">Маркетплейс — это полка с товаром. Клиентам нужна <strong style="color:var(--text-primary);">фабрика под заказ</strong>. Этой фабрики в гибридном AI-формате на рынке пока нет.</div>
+      </div>
+    `
+  },
+  {
+    label: "03 · Решение",
+    html: `
+      <div class="overline">Продукт</div>
+      <p class="h2">Два продукта. Одна инфраструктура.</p>
+      <p class="sub">AI генерирует базу — художники доводят до production-ready. Скорость AI + качество человека.</p>
+      <div class="card-grid" style="margin-bottom:1.25rem;">
+        <div class="card featured">
+          <div class="badge badge-blue">Продукт A</div>
+          <div style="font-size:16px; font-weight:500; color:var(--text-primary); margin-bottom:8px;">B2B Custom Studio</div>
+          <div class="rdesc" style="margin-bottom:14px;">Корпоративные заказчики: игровые студии, архбюро, производители. Кастомный ассет за 48 часов.</div>
+          <div><span class="tag tag-blue">Проектный чек $500–5000</span></div>
+        </div>
+        <div class="card">
+          <div class="badge badge-teal">Продукт B</div>
+          <div style="font-size:16px; font-weight:500; color:var(--text-primary); margin-bottom:8px;">E-Commerce Visualization</div>
+          <div class="rdesc" style="margin-bottom:14px;">Бренды с каталогами. 3D/AR карточки в масштабе. Подписка по объёму SKU.</div>
+          <div><span class="tag tag-teal">Подписка · Recurring revenue</span></div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="overline" style="margin-bottom:0.9rem;">Как это работает</div>
+        <div class="row">
+          <div class="icon-box ib-gray" style="font-size:13px;">1</div>
+          <div><div class="rtitle">Клиент подаёт бриф или фото продукта</div><div class="rdesc">Референсы, ТЗ, габариты, материалы</div></div>
+        </div>
+        <div class="row">
+          <div class="icon-box ib-blue" style="font-size:13px;">2</div>
+          <div><div class="rtitle">AI генерирует базовую геометрию</div><div class="rdesc">Tripo3D, Hyper3D, Rodin — экономия 60–70% времени</div></div>
+        </div>
+        <div class="row">
+          <div class="icon-box ib-teal" style="font-size:13px;">3</div>
+          <div><div class="rtitle">Художники 3D Molier — финальная доводка</div><div class="rdesc">Retopology, текстуры, PBR, форматы для любого pipeline</div></div>
+        </div>
+        <div class="row">
+          <div class="icon-box ib-amber" style="font-size:13px;">4</div>
+          <div><div class="rtitle">Клиент получает ready-to-use ассет</div><div class="rdesc">FBX / GLTF / USDZ — в среднем за 48 часов</div></div>
+        </div>
+      </div>
+    `
+  },
+  {
+    label: "04 · Почему мы",
+    html: `
+      <div class="overline">Конкурентное преимущество</div>
+      <p class="h2">Два партнёра. Нулевой старт с нуля.</p>
+      <p class="sub">Большинство конкурентов строят либо технологию, либо команду. У нас уже есть и то, и другое.</p>
+      <div class="split" style="margin-bottom:1.25rem;">
+        <div class="card">
+          <div class="overline">3D Molier</div>
+          <div class="row" style="margin-top:8px;">
+            <div class="icon-box ib-teal">👥</div>
+            <div><div class="rtitle">600+ художников по всему миру</div><div class="rdesc" style="font-size:12px;">Готовый глобальный конвейер производства</div></div>
+          </div>
+          <div class="row">
+            <div class="icon-box ib-teal">🏆</div>
+            <div><div class="rtitle">Google, NVIDIA, BBC, Warner</div><div class="rdesc" style="font-size:12px;">Enterprise-уровень качества подтверждён</div></div>
+          </div>
+          <div class="row">
+            <div class="icon-box ib-teal">💼</div>
+            <div><div class="rtitle">Финансирование и инфраструктура</div><div class="rdesc" style="font-size:12px;">Инвестиционный ресурс для запуска</div></div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="overline">Александр Дворкин</div>
+          <div class="row" style="margin-top:8px;">
+            <div class="icon-box ib-blue">⚙️</div>
+            <div><div class="rtitle">Строил этот конвейер изнутри</div><div class="rdesc" style="font-size:12px;">Head of Production 3D Molier 2022–2023</div></div>
+          </div>
+          <div class="row">
+            <div class="icon-box ib-blue">📈</div>
+            <div><div class="rtitle">×2 объём, −25% затраты</div><div class="rdesc" style="font-size:12px;">Выстроил команду и KPI с нуля</div></div>
+          </div>
+          <div class="row">
+            <div class="icon-box ib-blue">🚀</div>
+            <div><div class="rtitle">Операционное управление</div><div class="rdesc" style="font-size:12px;">Продукт, продажи, процессы — полная ответственность</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="card-surface">
+        <div style="font-size:14px; color:var(--text-secondary); line-height:1.65;">Ни один внешний конкурент не знает производственную модель 3D Molier так, как человек, который её строил. Это <strong style="color:var(--text-primary);">нулевая кривая обучения</strong> для нового сервиса — и реальный барьер для копирования.</div>
+      </div>
+    `
+  },
+  {
+    label: "05 · Модель",
+    html: `
+      <div class="overline">Бизнес-модель</div>
+      <p class="h2">Два потока выручки с первого дня</p>
+      <p class="sub">Проектная модель даёт быстрые деньги. Подписка строит стабильную базу. Вместе — диверсифицированная выручка.</p>
+      <div class="card-grid" style="margin-bottom:1.25rem;">
+        <div class="card">
+          <div class="overline" style="margin-bottom:0.5rem;">Поток A · B2B проекты</div>
+          <div style="font-size:26px; font-weight:500; color:var(--text-primary); margin: 6px 0 3px;">$500 – $5 000</div>
+          <div style="font-size:13px; color:var(--text-secondary); margin-bottom:14px;">за кастомный ассет</div>
+          <hr class="divider">
+          <div class="rdesc">Игровые студии, архбюро, производители, рекламные агентства. Разовые и повторные заказы.</div>
+        </div>
+        <div class="card">
+          <div class="overline" style="margin-bottom:0.5rem;">Поток B · E-Commerce подписка</div>
+          <div style="font-size:26px; font-weight:500; color:var(--text-primary); margin: 6px 0 3px;">$299 – $2 000</div>
+          <div style="font-size:13px; color:var(--text-secondary); margin-bottom:14px;">в месяц / пакет SKU</div>
+          <hr class="divider">
+          <div class="rdesc">Бренды мебели, электроники, косметики, одежды. Растущий каталог — растущая выручка.</div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-grid-3" style="margin-bottom:0;">
+          <div class="metric"><div class="val">~70%</div><div class="mlab">экономия трудозатрат через AI</div></div>
+          <div class="metric"><div class="val">48ч</div><div class="mlab">стандартный срок delivery</div></div>
+          <div class="metric"><div class="val">×2</div><div class="mlab">маржа vs ручное производство</div></div>
+        </div>
+      </div>
+    `
+  },
+  {
+    label: "06 · Потенциал",
+    html: `
+      <div class="overline">Финансовый потенциал</div>
+      <p class="h2">Международный рынок. Реалистичный сценарий роста.</p>
+      <p class="sub">Три горизонта развития на основе спроса глобального рынка B2B-визуализации и e-commerce 3D/AR. Консервативная модель без учёта реинвестирования.</p>
+      <div class="card-grid-3" style="margin-bottom:1.25rem;">
+        <div class="card" style="border-top: 3px solid var(--border-strong);">
+          <div class="overline" style="margin-bottom:0.5rem;">Год 1 · Запуск</div>
+          <div style="font-size:26px; font-weight:500; color:var(--text-primary); margin: 4px 0 2px;">$180K</div>
+          <div style="font-size:12px; color:var(--text-secondary); margin-bottom:12px;">выручка / год</div>
+          <hr class="divider">
+          <div class="rdesc" style="font-size:12px;">10–15 B2B проектов/мес · 5 e-comm подписок · Команда 3–5 человек</div>
+        </div>
+        <div class="card" style="border-top: 3px solid var(--blue-accent);">
+          <div class="overline" style="margin-bottom:0.5rem;">Год 2 · Масштаб</div>
+          <div style="font-size:26px; font-weight:500; color:var(--blue-accent); margin: 4px 0 2px;">$620K</div>
+          <div style="font-size:12px; color:var(--text-secondary); margin-bottom:12px;">выручка / год</div>
+          <hr class="divider">
+          <div class="rdesc" style="font-size:12px;">30–40 B2B проектов/мес · 25 подписок · Выход на рынки США, EU, UAE</div>
+        </div>
+        <div class="card" style="border-top: 3px solid var(--teal-accent);">
+          <div class="overline" style="margin-bottom:0.5rem;">Год 3 · Рост</div>
+          <div style="font-size:26px; font-weight:500; color:var(--teal-accent); margin: 4px 0 2px;">$1.4M</div>
+          <div style="font-size:12px; color:var(--text-secondary); margin-bottom:12px;">выручка / год</div>
+          <hr class="divider">
+          <div class="rdesc" style="font-size:12px;">60+ B2B проектов/мес · 60 подписок · Якорные enterprise-клиенты</div>
+        </div>
+      </div>
+      <div class="card" style="margin-bottom:12px;">
+        <div class="overline" style="margin-bottom:0.9rem;">Маржинальность и прибыль</div>
+        <div class="card-grid" style="margin-bottom:0;">
+          <div>
+            <div class="row">
+              <div class="icon-box ib-blue" style="font-size:13px;">📊</div>
+              <div>
+                <div class="rtitle">Валовая маржа: 55–65%</div>
+                <div class="rdesc" style="font-size:12px;">AI снижает себестоимость производства на 60–70% относительно fully-manual pipeline</div>
+              </div>
+            </div>
+            <div class="row" style="margin-bottom:0;">
+              <div class="icon-box ib-teal" style="font-size:13px;">💰</div>
+              <div>
+                <div class="rtitle">EBITDA к концу года 2: ~$180K</div>
+                <div class="rdesc" style="font-size:12px;">После операционных расходов, маркетинга и команды</div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div class="row">
+              <div class="icon-box ib-amber" style="font-size:13px;">🌍</div>
+              <div>
+                <div class="rtitle">Целевые рынки</div>
+                <div class="rdesc" style="font-size:12px;">США (40%), Европа (30%), UAE / APAC (30%) — рынки с высоким чеком и зрелым e-commerce</div>
+              </div>
+            </div>
+            <div class="row" style="margin-bottom:0;">
+              <div class="icon-box ib-gray" style="font-size:13px;">📦</div>
+              <div>
+                <div class="rtitle">Объём рынка (TAM): $2.6B к 2035</div>
+                <div class="rdesc" style="font-size:12px;">CAGR 23% · даже 0.1% доли = $2.6M ARR</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card-surface">
+        <div style="font-size:13px; color:var(--text-tertiary); line-height:1.6;">* Прогноз построен на консервативных допущениях: средний чек B2B $800, средняя подписка $600/мес, конверсия лидов 15%. Детальная финансовая модель — на созвоне.</div>
+      </div>
+    `
+  },
+  {
+    label: "07 · Структура",
+    html: `
+      <div class="overline">Партнёрство</div>
+      <p class="h2">Чёткое разделение ролей</p>
+      <p class="sub">Отдельное юрлицо. Синергия с 3D Molier — без конфликта с текущим бизнесом маркетплейса.</p>
+      <div class="card" style="margin-bottom:12px;">
+        <div class="row">
+          <div class="icon-box ib-teal">🏦</div>
+          <div>
+            <div class="rtitle">Андрей — инвестор и стратегический партнёр</div>
+            <div class="rdesc">Финансирование запуска, доступ к команде 3D Molier, участие в стратегических решениях</div>
+          </div>
+        </div>
+        <hr class="divider">
+        <div class="row">
+          <div class="icon-box ib-blue">⚡</div>
+          <div>
+            <div class="rtitle">Александр — операционный партнёр</div>
+            <div class="rdesc">Полное управление продуктом, процессами и продажами. Ответственность за результат.</div>
+          </div>
+        </div>
+      </div>
+      <div class="card-grid">
+        <div class="card">
+          <div class="overline">Юридическая структура</div>
+          <div class="row" style="margin-top:8px;">
+            <div class="icon-box ib-gray">📄</div>
+            <div><div class="rtitle">Отдельное юрлицо</div><div class="rdesc" style="font-size:12px;">Не пересекается с текущим бизнесом 3D Molier</div></div>
+          </div>
+          <div class="row">
+            <div class="icon-box ib-gray">📊</div>
+            <div><div class="rtitle">Equity split</div><div class="rdesc" style="font-size:12px;">Обсуждается на созвоне</div></div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="overline">Синергия с 3D Molier</div>
+          <div class="row" style="margin-top:8px;">
+            <div class="icon-box ib-teal">👥</div>
+            <div><div class="rtitle">Художники по необходимости</div><div class="rdesc" style="font-size:12px;">Привлекаем команду 3D Molier под нагрузку</div></div>
+          </div>
+          <div class="row">
+            <div class="icon-box ib-teal">🤝</div>
+            <div><div class="rtitle">Не конкурируем</div><div class="rdesc" style="font-size:12px;">Маркетплейс и кастом-студия — разные рынки</div></div>
+          </div>
+        </div>
+      </div>
+    `
+  },
+  {
+    label: "08 · Следующий шаг",
+    html: `
+      <div class="overline">Call to action</div>
+      <p class="h1">Один созвон.<br>30 минут.</p>
+      <p class="sub">Готов показать детали, обсудить структуру партнёрства и услышать ваш взгляд на рынок — вы знаете его изнутри.</p>
+      <div class="card" style="margin-bottom:12px;">
+        <div class="overline" style="margin-bottom:0.9rem;">Повестка звонка</div>
+        <div class="row">
+          <div class="icon-box ib-blue" style="font-size:13px;">1</div>
+          <div><div class="rtitle">Разбор двух бизнес-моделей</div><div class="rdesc">B2B Custom Studio + E-Commerce Visualization — цифры, допущения, потенциал</div></div>
+        </div>
+        <div class="row">
+          <div class="icon-box ib-blue" style="font-size:13px;">2</div>
+          <div><div class="rtitle">Обсуждение структуры партнёрства</div><div class="rdesc">Юрлицо, роли, equity, доступ к команде</div></div>
+        </div>
+        <div class="row">
+          <div class="icon-box ib-blue" style="font-size:13px;">3</div>
+          <div><div class="rtitle">Ваши вопросы и обратная связь</div><div class="rdesc">Вы видите 3D-рынок изнутри — это важно для понимания точек роста</div></div>
+        </div>
+      </div>
+      <div class="contact-row">
+        <div class="avatar">АД</div>
+        <div>
+          <div style="font-size:15px; font-weight:500; color:var(--text-primary);">Александр Дворкин</div>
+          <div style="font-size:13px; color:var(--text-secondary); margin-top:3px;">Telegram: @alex_dvorkin</div>
+          <div style="font-size:13px; color:var(--text-secondary);">dvorkin.a.s@gmail.com</div>
+        </div>
+      </div>
+    `
+  }
+];
+
+let current = 0;
+const totalSlides = slides.length;
+
+function render() {
+  const nav = document.getElementById('nav');
+  const slidesEl = document.getElementById('slides');
+  const counter = document.getElementById('counter');
+  const progress = document.getElementById('progress');
+  const btnPrev = document.getElementById('btn-prev');
+  const btnNext = document.getElementById('btn-next');
+
+  nav.innerHTML = slides.map((s, i) =>
+    `<button class="nav-btn${i === current ? ' active' : ''}" onclick="goTo(${i})">${s.label}</button>`
+  ).join('');
+
+  slidesEl.innerHTML = slides.map((s, i) =>
+    `<div class="slide${i === current ? ' active' : ''}">${s.html}</div>`
+  ).join('');
+
+  counter.textContent = `${current + 1} / ${totalSlides}`;
+  progress.style.width = `${((current + 1) / totalSlides) * 100}%`;
+  btnPrev.disabled = current === 0;
+  btnNext.disabled = current === totalSlides - 1;
+}
+
+function goTo(i) { current = i; render(); }
+function nextSlide() { if (current < totalSlides - 1) { current++; render(); } }
+function prevSlide() { if (current > 0) { current--; render(); } }
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'ArrowRight' || e.key === 'ArrowDown') nextSlide();
+  if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') prevSlide();
+});
+
+render();
+</script>
+</body>
+</html>
